@@ -1,0 +1,60 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="MasterPage.master.cs" Inherits="MasterPage" %>
+
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>My Website</title>
+
+    <style>
+        body {
+            background-color: aquamarine;
+            font-family: Arial;
+            text-align: center;
+        }
+
+        /* title */
+        .title {
+            font-size: 30px;
+            color: blue;
+            border: 2px solid black;
+            width: 60%;
+            margin: 20px auto;
+        }
+
+        /* links like buttons */
+        .nav a {
+            background-color: #007BFF;
+            color: white;
+            padding: 8px 15px;
+            margin: 5px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+        }
+    </style>
+
+    <asp:ContentPlaceHolder ID="head" runat="server"></asp:ContentPlaceHolder>
+</head>
+
+<body>
+
+    <!-- TITLE ABOVE BUTTONS -->
+    <div class="title">
+        MY main website
+    </div>
+
+    <!-- LINKS -->
+    <div class="nav">
+        <a href="aspnet.aspx">לוח הכפל</a>
+        <a href="Default.aspx">Default</a>
+        <a href="messedform.aspx">messedformchaos</a>
+    </div>
+
+    <hr />
+
+    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server"></asp:ContentPlaceHolder>
+
+    <h1>The end</h1>
+
+</body>
+</html>
