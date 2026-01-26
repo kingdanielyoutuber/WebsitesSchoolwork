@@ -48,6 +48,8 @@
         <a href="aspnet.aspx">לוח הכפל</a>
         <a href="Default.aspx">Default</a>
         <a href="messedform.aspx">messedformchaos</a>
+        <a href="Register.aspx">Register.aspx</a>
+        <a href="Login.aspx">Login.aspx</a>
     </div>
 
     <hr />
