@@ -21,12 +21,20 @@ public partial class Login : System.Web.UI.Page
                 " email = N'" + strEmail + "' " +
                 " and " +
                 " password = N'" + strPassword1 + "'";
+            //בונה חשבון מנהל
+            if (strEmail == "theadminYES@gmail.com" && strPassword1 == "5768Lk")
+            {
+                Response.Redirect("Showmembers.aspx");
+            }
+            else {
+                bool isExist = MyAdoHelper.IsExist(strSelect);
+                if (isExist)
+                    //strResult = "OK";
+                    Response.Redirect("Home.aspx");
+                else
+                    strResult = "אינך רשום";
 
-            bool isExist = MyAdoHelper.IsExist(strSelect);
-            if (isExist)
-                strResult = "OK";
-            else
-                strResult = "אינך רשום";
+            }
         }
     }
 }
