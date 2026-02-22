@@ -4,7 +4,13 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <hi1> טבלת משתמשים</hi1>
-    <%=st %>
+    <form runat="server" method="post">
+        name: <input type="text" name="firstname">
+        familiyname: <input type="text" name="lastname">
+        <input type="reset" name="reset1" value="reset">
+        <input type="submit" name="thesender" value="submit">   
+    </form>
     <br />
+    <%=st %>
 </asp:Content>
 

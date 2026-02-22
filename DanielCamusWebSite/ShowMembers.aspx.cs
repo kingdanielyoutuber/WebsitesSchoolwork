@@ -12,45 +12,52 @@ public partial class ShowMembers : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // אוסף את כל הרשומות
-        string sql = "SELECT * FROM tUsers";
-
-        DataTable dt = MyAdoHelper.ExecuteDataTable(sql);
-
-        if (dt.Rows.Count == 0)
+        //if (Page.IsPostBack) לא צריך להשאיר ככה
         {
-            st = "איו נתונים";
-        }
-        else
-        {
-            st += "<table border='1'>";
-            st += "<tr>";
-            st += "<td>שם פרטי</td>";
-            st += "<td>שם משפחה</td>";
-            st += "<td>יום הולדת</td>";
-            st += "<td>איימל</td>";
-            st += "<td>אוכל אהוב</td>";
-            st += "<td>עוד מידע</td>";
-            st += "<td>משחק אהוב</td>";
-            st += "<td>סיסמה</td>";
-            st += "<td>מספר טלפון</td>";
-            st += "</tr>";
+            string strFirstname = Request.Form["firstname"];
+            string strLastname = Request.Form["lastname"];
+            // אוסף את כל הרשומות
+            string sql = "SELECT * FROM tUsers WHERE " +
+                "name LIKE N'%" + strFirstname + "%' AND " +
+                "familiyname LIKE N'%" + strLastname + "%'";
 
-            // לולאה על השורות
-            for (int i = 0; i < dt.Rows.Count; i++)
+            DataTable dt = MyAdoHelper.ExecuteDataTable(sql);
+
+            if (dt.Rows.Count == 0)
             {
+                st = "איו נתונים";
+            }
+            else
+            {
+                st += "<table border='1'>";
                 st += "<tr>";
+                st += "<td>שם פרטי</td>";
+                st += "<td>שם משפחה</td>";
+                st += "<td>יום הולדת</td>";
+                st += "<td>איימל</td>";
+                st += "<td>אוכל אהוב</td>";
+                st += "<td>עוד מידע</td>";
+                st += "<td>משחק אהוב</td>";
+                st += "<td>סיסמה</td>";
+                st += "<td>מספר טלפון</td>";
+                st += "</tr>";
 
-                // לולאה על העמודות
-                for (int k = 0; k < dt.Columns.Count; k++)
+                // לולאה על השורות
+                for (int i = 0; i < dt.Rows.Count; i++)
                 {
-                    st += "<td>" + dt.Rows[i][k] + "</td>";
+                    st += "<tr>";
+
+                    // לולאה על העמודות
+                    for (int k = 0; k < dt.Columns.Count; k++)
+                    {
+                        st += "<td>" + dt.Rows[i][k] + "</td>";
+                    }
+
+                    st += "</tr>";
                 }
 
-                st += "</tr>";
+                st += "</table>";
             }
-
-            st += "</table>";
         }
     }
 }
