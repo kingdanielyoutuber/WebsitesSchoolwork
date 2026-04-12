@@ -6,9 +6,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class MasterPage : System.Web.UI.MasterPage
-{ 
+{
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        // ה-Session מנוהל ב-Login.aspx.cs ומוצג ב-HTML של ה-MasterPage
     }
 }

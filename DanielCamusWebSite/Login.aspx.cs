@@ -1,39 +1,47 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Data;
 using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class Login : System.Web.UI.Page
 {
-    public string strResult;
+    public string strResult = "";
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack) //אם לחצו על שלח (אחרת תיכנס רשומה ריקה לטבלה)
+        if (Page.IsPostBack)
         {
             string strEmail = Request.Form["anEmail"];
             string strPassword1 = Request.Form["password1"];
 
-            //N for special characters including hebrew
-            //select * from tUsers where email=N'רינת' and password=N'123!@#' 
-            string strSelect = "select * from tUsers where " +
-                " email = N'" + strEmail + "' " +
-                " and " +
-                " password = N'" + strPassword1 + "'";
-            //בונה חשבון מנהל
+            // 1. בדיקת מנהל
             if (strEmail == "theadminYES@gmail.com" && strPassword1 == "5768Lk")
             {
+                Session["userName"] = "מנהל רשום";
+                Session["userRole"] = "admin";
                 Response.Redirect("Showmembers.aspx");
             }
-            else {
-                bool isExist = MyAdoHelper.IsExist(strSelect);
-                if (isExist)
-                    //strResult = "OK";
-                    Response.Redirect("Home.aspx");
-                else
-                    strResult = "אינך רשום";
+            else
+            {
+                // 2. בדיקה מול מסד הנתונים
+                string strSelect = "SELECT * FROM tUsers WHERE Email = N'" + strEmail + "' AND password = N'" + strPassword1 + "'";
+                DataTable dt = MyAdoHelper.ExecuteDataTable(strSelect);
 
+                if (dt.Rows.Count > 0)
+                {
+                    string firstName = dt.Rows[0]["name"].ToString(); // לפי עמודת name בטבלה
+                    Session["userName"] = firstName + " רשום";
+                    Session["userRole"] = "user";
+                    Response.Redirect("Home.aspx");
+                }
+                else
+                {
+                    // *** כאן התיקון החשוב! ***
+                    // אם הפרטים לא נכונים, אנחנו מאפסים את ה-Session כדי שלא יזכור את המשתמש הקודם
+                    Session["userName"] = null;
+                    Session["userRole"] = null;
+                    strResult = "אינך רשום - חזרת למצב אורח";
+                }
             }
         }
     }
