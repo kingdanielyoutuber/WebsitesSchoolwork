@@ -40,7 +40,7 @@ public partial class Login : System.Web.UI.Page
                     // אם הפרטים לא נכונים, אנחנו מאפסים את ה-Session כדי שלא יזכור את המשתמש הקודם
                     Session["userName"] = null;
                     Session["userRole"] = null;
-                    strResult = "אינך רשום - חזרת למצב אורח";
+                    strResult = "אינך רשום במערכת, או שהפרטים שגויים.";
                 }
             }
         }

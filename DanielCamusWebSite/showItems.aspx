@@ -22,5 +22,4 @@
         <%= st %>
     </div>
 
-    <h1 style="text-align:center;">The end</h1>
 </asp:Content>
