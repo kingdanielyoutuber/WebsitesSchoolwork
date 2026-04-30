@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head runat="server">
-    <title>My Website</title>
+    <title>Daniel camus</title>
 
     <style>
         body {
@@ -47,7 +47,7 @@
 
 <body>
     <div class="title">
-        MY main website
+        Daniel camus Randomliertems
     </div>
 
     <div class="user-status">
@@ -69,6 +69,7 @@
         
         <%-- קישורים שמוצגים לכולם (גם אם לא מחוברים) --%>
         <a href="messedform.aspx">messedformchaos</a>
+        <a href="introduction.aspx">introduction</a>
         
 
         <%-- קישורים רק לאורחים (כשהסשן ריק) --%>
@@ -79,16 +80,15 @@
 
         <%-- קישורים למשתמשים רשומים ומנהלים (כשהסשן מלא) --%>
         <% if (Session["userRole"] != null) { %>
-            <a href="Home.aspx">Home</a>
             <a href="aspnet.aspx">לוח הכפל</a>
             <a href="showItems.aspx">showItems</a>
-        <a href="Logout.aspx">Logout</a>
+            <a href="Logout.aspx">Logout</a>
         <% } %>
 
         <%-- קישורים למנהל בלבד --%>
         <% if (Session["userRole"] != null && Session["userRole"].ToString() == "admin") { %>
             <a href="ShowMembers.aspx">ShowMembers</a>
-            <a href="Registeritem.aspx">Registeritem</a>
+            <a href="Registeritem.aspx">Registeritems</a>
         <% } %>
 
     </div>

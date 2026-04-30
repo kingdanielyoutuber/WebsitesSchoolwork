@@ -32,7 +32,7 @@ public partial class Login : System.Web.UI.Page
                     string firstName = dt.Rows[0]["name"].ToString(); // לפי עמודת name בטבלה
                     Session["userName"] = firstName + " רשום";
                     Session["userRole"] = "user";
-                    Response.Redirect("Home.aspx");
+                    Response.Redirect("showItems.aspx");
                 }
                 else
                 {

@@ -5,7 +5,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <html>
         <head>
-            <title>Daniel Camus project</title>
+            <title>Daniel Camus html project</title>
 <style>
    table { 
       border:1px solid black; 
