@@ -80,7 +80,7 @@
 
         <%-- קישורים למשתמשים רשומים ומנהלים (כשהסשן מלא) --%>
         <% if (Session["userRole"] != null) { %>
-            <a href="aspnet.aspx">לוח הכפל</a>
+            <a href="duotable.aspx">לוח הכפל</a>
             <a href="showItems.aspx">showItems</a>
             <a href="Logout.aspx">Logout</a>
         <% } %>

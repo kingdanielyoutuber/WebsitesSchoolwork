@@ -6,7 +6,7 @@ using System.Xml.Linq;
 
 
 
-public partial class aspnet : System.Web.UI.Page
+public partial class duotable : System.Web.UI.Page
 {
     public string TableHtml = "";
 
