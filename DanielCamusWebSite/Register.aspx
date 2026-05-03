@@ -1,13 +1,138 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="Register.aspx.cs" Inherits="Register" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
-    <script type="text/javascript">
-        function checkAll() {
-            var isValid = true;
-            // כאן תוסיף את הבדיקות שלך בעתיד
-            return isValid;
+<script language="javascript">
+    function checkAll() {
+        // איפוס כל הודעות השגיאה
+        firstnameerror.innerHTML = "";
+        lastnameerror.innerHTML = "";
+        password1error.innerHTML = "";
+        anEmailerror.innerHTML = "";
+        phonenumerror.innerHTML = "";
+        optionserror.innerHTML = "";
+        gameserror.innerHTML = "";
+        thedateerror.innerHTML = "";
+        textarea1error.innerHTML = "";
+
+        var f = true;
+
+        // ביצוע כל הבדיקות
+        f = checkFirstName() && f;
+        f = checkLastName() && f;
+        f = checkPassword() && f;
+        f = checkEmail() && f;
+        f = checkPhone() && f;
+        f = checkOptions() && f;
+        f = checkGames() && f;
+        f = checkBirthday() && f;
+        f = checkMoreInfo() && f;
+
+        return f;
+    }
+
+    function checkFirstName() {
+        var name = document.getElementById("firstname").value;
+        if (name.length < 3 || name.length > 30) {
+            firstnameerror.innerHTML = "אורך השם הפרטי לא תקין";
+            return false;
         }
-    </script>
+        return true;
+    }
+
+    function checkLastName() {
+        var lastName = document.getElementById("lastname").value;
+        if (lastName.length <= 3 || lastName.length > 30) {
+            lastnameerror.innerHTML = "אורך השם המשפחה לא תקין";
+            return false;
+        }
+        return true;
+    }
+
+    function checkPassword() {
+        var pass = document.getElementById("password1").value;
+        var hasLetter = /[a-zA-Z]/.test(pass);
+        if (pass.length < 4) {
+            password1error.innerHTML = "צריך שהסיסמה תהיה מעל 4 תווים ומעלה";
+            return false;
+        }
+        else if (!hasLetter) {
+            password1error.innerHTML = "הסיסמה חייבת להכיל לפחות אות אחת באנגלית";
+            return false;
+        }
+        return true;
+    }
+
+    function checkEmail() {
+        var email = document.getElementById("anEmail").value;
+        if (email.indexOf('@') == -1 || email.lastIndexOf('.') < email.indexOf('@')) {
+            anEmailerror.innerHTML = "כתובת אימייל לא תקינה";
+            return false;
+        }
+        return true;
+    }
+
+    function checkPhone() {
+        var phone = document.getElementById("phonenum").value;
+        var onlyDigits = /^\d+$/.test(phone);
+
+        // בדיקה שיש בדיוק 7 ספרות בתיבת הטקסט
+        if (phone.length !== 7 || !onlyDigits) {
+            phonenumerror.innerHTML = "מספר טלפון חייב להכיל בדיוק 7 ספרות";
+            return false;
+        }
+        return true;
+    }
+
+    function checkBirthday() {
+        var bdayValue = document.getElementById("thedate").value;
+
+        if (bdayValue == "") {
+            thedateerror.innerHTML = "חובה לבחור תאריך לידה";
+            return false;
+        }
+
+        // מוציאים את שנת הלידה מהתאריך והופכים למספר
+        var birthYear = new Date(bdayValue).getFullYear();
+        var currentYear = 2026; // השנה הנוכחית
+        var age = currentYear - birthYear;
+
+        // בדיקה פשוטה: אם הגיל קטן מ-18, הוא צעיר מדי
+        if (age < 18) {
+            thedateerror.innerHTML = "אתה צעיר מידי רק לגילאים 18 ומעלה";
+            return false;
+        }
+
+        return true;
+    }
+
+    function checkMoreInfo() {
+        var info = document.getElementById("textarea1").value;
+        if (info.length > 200) {
+            textarea1error.innerHTML = "הפירוט ארוך מדי (מקסימום 200 תווים)";
+            return false;
+        }
+        return true;
+    }
+
+    function checkOptions() {
+        if (!document.getElementById("options1").checked &&
+            !document.getElementById("options2").checked &&
+            !document.getElementById("options3").checked) {
+            optionserror.innerHTML = "חובה לבחור מאכל אהוב";
+            return false;
+        }
+        return true;
+    }
+
+    function checkGames() {
+        if (!document.getElementById("games1").checked &&
+            !document.getElementById("games2").checked) {
+            gameserror.innerHTML = "חובה לבחור לפחות משחק אחד";
+            return false;
+        }
+        return true;
+    }
+</script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
