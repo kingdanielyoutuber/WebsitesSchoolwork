@@ -12,52 +12,51 @@ public partial class ShowMembers : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        //if (Page.IsPostBack) לא צריך להשאיר ככה
+        // קליטת ערכים מהטופס (מניעת שגיאת null אם השדה ריק)
+        string strFirstname = Request.Form["firstname"] ?? "";
+        string strLastname = Request.Form["lastname"] ?? "";
+
+        // שאילתת חיפוש
+        string sql = "SELECT * FROM tUsers WHERE " +
+                     "name LIKE N'%" + strFirstname + "%' AND " +
+                     "familiyname LIKE N'%" + strLastname + "%'";
+
+        DataTable dt = MyAdoHelper.ExecuteDataTable(sql);
+
+        if (dt.Rows.Count == 0)
         {
-            string strFirstname = Request.Form["firstname"];
-            string strLastname = Request.Form["lastname"];
-            // אוסף את כל הרשומות
-            string sql = "SELECT * FROM tUsers WHERE " +
-                "name LIKE N'%" + strFirstname + "%' AND " +
-                "familiyname LIKE N'%" + strLastname + "%'";
+            st = "<h3 style='text-align:center; color:red;'>לא נמצאו משתמשים תואמים</h3>";
+        }
+        else
+        {
+            st += "<table>";
+            st += "<tr>";
+            // שימוש ב-TH בשביל ה-CSS של הכותרת
+            st += "<th>שם פרטי</th>";
+            st += "<th>שם משפחה</th>";
+            st += "<th>יום הולדת</th>";
+            st += "<th>אימייל</th>";
+            st += "<th>אוכל אהוב</th>";
+            st += "<th>עוד מידע</th>";
+            st += "<th>משחק אהוב</th>";
+            st += "<th>סיסמה</th>";
+            st += "<th>מספר טלפון</th>";
+            st += "</tr>";
 
-            DataTable dt = MyAdoHelper.ExecuteDataTable(sql);
-
-            if (dt.Rows.Count == 0)
+            // לולאה על השורות
+            for (int i = 0; i < dt.Rows.Count; i++)
             {
-                st = "איו נתונים";
-            }
-            else
-            {
-                st += "<table border='1'>";
                 st += "<tr>";
-                st += "<td>שם פרטי</td>";
-                st += "<td>שם משפחה</td>";
-                st += "<td>יום הולדת</td>";
-                st += "<td>איימל</td>";
-                st += "<td>אוכל אהוב</td>";
-                st += "<td>עוד מידע</td>";
-                st += "<td>משחק אהוב</td>";
-                st += "<td>סיסמה</td>";
-                st += "<td>מספר טלפון</td>";
-                st += "</tr>";
-
-                // לולאה על השורות
-                for (int i = 0; i < dt.Rows.Count; i++)
+                // לולאה על העמודות (Id, name, familyname, BirthDay, email, food, moreinfo, game, pass, phonenumber)
+                for (int k = 0; k < dt.Columns.Count; k++)
                 {
-                    st += "<tr>";
-
-                    // לולאה על העמודות
-                    for (int k = 0; k < dt.Columns.Count; k++)
-                    {
-                        st += "<td>" + dt.Rows[i][k] + "</td>";
-                    }
-
-                    st += "</tr>";
+                    st += "<td>" + dt.Rows[i][k] + "</td>";
                 }
-
-                st += "</table>";
+                st += "</tr>";
             }
+
+            st += "</table>";
+            st += "<p style='text-align:center; margin-top:10px;'>נמצאו " + dt.Rows.Count + " משתמשים</p>";
         }
     }
 }

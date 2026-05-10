@@ -107,10 +107,17 @@
 
     function checkMoreInfo() {
         var info = document.getElementById("textarea1").value;
-        if (info.length > 200) {
+
+        if (info.length < 20) {
+            textarea1error.innerHTML = "צריך לכתוב לפחות 20 תווים בפירוט";
+            return false;
+        }
+        
+        else if (info.length > 200) {
             textarea1error.innerHTML = "הפירוט ארוך מדי (מקסימום 200 תווים)";
             return false;
         }
+
         return true;
     }
 

@@ -3,10 +3,70 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <script type="text/javascript">
         function checkAll() {
-            var isValid = true;
-            
-            // כאן תוסיף את הלוגיקה שלך שבוע הבא (איפוס הודעות ובדיקה)
-            return isValid;
+            // איפוס כל הודעות השגיאה בגישה ישירה ל-ID
+            itemNameerror.innerHTML = "";
+            textarea1error.innerHTML = "";
+            itemCounterror.innerHTML = "";
+            itemPriceerror.innerHTML = "";
+
+            var f = true;
+
+            // הרצת כל הבדיקות - הסדר חשוב כדי שכל השגיאות יוצגו בבת אחת
+            f = checkItemName() && f;
+            f = checkItemDescription() && f;
+            f = checkItemCount() && f;
+            f = checkItemPrice() && f;
+
+            return f; // אם f נשאר true הטופס יישלח, אחרת הוא ייעצר
+        }
+
+        function checkItemName() {
+            var name = document.getElementById("itemName").value;
+            if (name.length < 3 || name.length > 50) {
+                itemNameerror.innerHTML = "שם הפריט חייב להיות בין 3 ל-50 תווים";
+                return false;
+            }
+            return true;
+        }
+
+        function checkItemDescription() {
+            var desc = document.getElementById("textarea1").value;
+
+            if (desc.length < 20) {
+                textarea1error.innerHTML = "התיאור חייב להכיל לפחות 20 תווים";
+                return false;
+            }
+
+            else if (desc.length > 200) {
+                textarea1error.innerHTML = "התיאור ארוך מדי (מקסימום 200 תווים)";
+                return false;
+            }
+
+            return true;
+        }
+
+        function checkItemCount() {
+            var count = document.getElementById("itemCount").value;
+            if (count === "") {
+                itemCounterror.innerHTML = "חובה להזין כמות";
+                return false;
+            } else if (Number(count) < 0) {
+                itemCounterror.innerHTML = "כמות לא יכולה להיות שלילית";
+                return false;
+            }
+            return true;
+        }
+
+        function checkItemPrice() {
+            var price = document.getElementById("itemPrice").value;
+            if (price === "") {
+                itemPriceerror.innerHTML = "חובה להזין מחיר";
+                return false;
+            } else if (Number(price) <= 0) {
+                itemPriceerror.innerHTML = "המחיר חייב להיות גדול מ-0";
+                return false;
+            }
+            return true;
         }
     </script>
 </asp:Content>
