@@ -1,4 +1,4 @@
-﻿<%@ Page Title="קצת עליי" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ownerDanielinfo.aspx.cs" Inherits="_Default" %>
+﻿<%@ Page Title="קצת עליי" Language="C#" MasterPageFile="~/MasterPage.master" AutoEventWireup="true" CodeFile="ownerDanielinfo.aspx.cs" Inherits="ownerDanielinfo" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style>
@@ -87,7 +87,7 @@
 
         <h3 class="section-title">מה אני עושה בחיים?</h3>
         <p>
-            אני משלב ביומיום שלי שני עולמות חזקים: מצד אחד לומד ב<strong>מגמת תקשורת</strong> ומפיק תוכן, ומצד שני לומד ב<strong>הנדסת תוכנה</strong> ובונה קוד ומערכות (כמו האתר הזה שאתם רואים עכשיו!).
+            I משלב ביומיום שלי שני עולמות חזקים: מצד אחד לומד ב<strong>מגמת תקשורת</strong> ומפיק תוכן, ומצד שני לומד ב<strong>הנדסת תוכנה</strong> ובונה קוד ומערכות (כמו האתר הזה שאתם רואים עכשיו!).
         </p>
 
         <h3 class="section-title">התחביבים והיצירה שלי</h3>
