@@ -70,6 +70,8 @@
         <%-- קישורים שמוצגים לכולם (גם אם לא מחוברים) --%>
         <a href="messedform.aspx">messedformchaos</a>
         <a href="introduction.aspx">introduction</a>
+        <a href="ownerDanielinfo.aspx">ownerDanielinfo</a>
+        <a href="Gallery.aspx">Gallery</a>
         
 
         <%-- קישורים רק לאורחים (כשהסשן ריק) --%>

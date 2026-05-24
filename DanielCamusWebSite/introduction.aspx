@@ -56,9 +56,11 @@
 
         <br /><br />
         
+        
         <p style="font-weight: bold; color: blue;">
             אז למה אתם מחכים? לכו להירשם ותתחילו לקבל פריטים רנדומליים!
         </p>
+        <img src="https://cdn.searchenginejournal.com/wp-content/uploads/2025/02/img_2025-02-10-133404-633-1440x810.jpg" width="250" height="300"/>
 
     </div>
 </asp:Content>
