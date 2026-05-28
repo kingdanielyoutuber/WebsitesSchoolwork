@@ -9,7 +9,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-        <h1>טבלת פרטים רנדומלים</h1>
+        <h1>טבלת פריטים רנדומלים</h1>
 
     <div class="search-area">
         <form method="post" runat="server">
