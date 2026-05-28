@@ -5,10 +5,10 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
     <form method="post" runat="server">
         <hr/>
-        אימייל <input type="email" name="anEmail">
+        :אימייל  <input type="email" name="anEmail">
     <hr />
 
-    <input type="password" name="password1">
+    :סיסמה <input type="password" name="password1">
     <hr />
         <input type="reset" name="reset1" value="reset">
         <input type="submit" name="thesender" value="submit">   
