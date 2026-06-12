@@ -50,8 +50,9 @@
             if (count === "") {
                 itemCounterror.innerHTML = "חובה להזין כמות";
                 return false;
-            } else if (Number(count) < 0) {
-                itemCounterror.innerHTML = "כמות לא יכולה להיות שלילית";
+            }
+            else if (count >= 100) {
+                itemCounterror.innerHTML = "יותר מידי פרטים!";
                 return false;
             }
             return true;
@@ -59,11 +60,8 @@
 
         function checkItemPrice() {
             var price = document.getElementById("itemPrice").value;
-            if (price === "") {
+            if (price == "") {
                 itemPriceerror.innerHTML = "חובה להזין מחיר";
-                return false;
-            } else if (Number(price) <= 0) {
-                itemPriceerror.innerHTML = "המחיר חייב להיות גדול מ-0";
                 return false;
             }
             return true;

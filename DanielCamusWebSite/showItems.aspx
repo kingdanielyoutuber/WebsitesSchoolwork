@@ -2,16 +2,41 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" Runat="Server">
     <style>
-        table { border-collapse: collapse; width: 100%; direction: rtl; background-color: #a2ffd7; } /* צבע רקע דומה לתמונה שלך */
-        th, td { border: 1px solid black; padding: 8px; text-align: center; }
-        .search-area { text-align: center; margin-bottom: 20px; direction: rtl; padding: 15px; background-color: #f9f9f9; border-bottom: 2px solid #ccc; }
+        /* עיצוב הטבלה - בסיסי וזהה לשאר האתר */
+        table {
+            border: 2px solid yellow;
+            width: 70%;
+            margin: 20px auto;
+            border-collapse: separate; 
+            direction: rtl; 
+        }
+        
+        th, td {
+            border: 2px solid #333;
+            background-color: #0683f1;
+            padding: 8px;
+            text-align: center;
+        }
+        
+        /* שורת הכותרת העליונה בלבן */
+        tr.topRow {
+            color: white; 
+        }
+        
+        /* אזור חיפוש נקי ופשוט */
+        .searchBox {
+            text-align: center;
+            margin: 20px auto;
+            direction: rtl;
+        }
     </style>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" Runat="Server">
-        <h1>טבלת פריטים רנדומלים</h1>
+    
+    <h2 style="text-align:center;">טבלת פריטים רנדומלים</h2>
 
-    <div class="search-area">
+    <div class="searchBox">
         <form method="post" runat="server">
             שם הפריט: <input type="text" name="itemNameSearch"> 
             מחיר עד: <input type="number" name="itemPriceSearch">
@@ -20,7 +45,7 @@
         </form>
     </div>
 
-    <div style="width: 100%; overflow-x: auto;">
+    <div>
         <%= st %>
     </div>
 

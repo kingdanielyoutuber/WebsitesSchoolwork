@@ -12,11 +12,11 @@ public partial class ShowMembers : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // קליטת ערכים מהטופס (מניעת שגיאת null אם השדה ריק)
-        string strFirstname = Request.Form["firstname"] ?? "";
-        string strLastname = Request.Form["lastname"] ?? "";
+        // קליטת ערכים מהטופס
+        string strFirstname = Request.Form["firstname"];
+        string strLastname = Request.Form["lastname"];
 
-        // שאילתת חיפוש
+        // שאילתת חיפוש בסיסית עם LIKE (חיפוש חלקי)
         string sql = "SELECT * FROM tUsers WHERE " +
                      "name LIKE N'%" + strFirstname + "%' AND " +
                      "familiyname LIKE N'%" + strLastname + "%'";
@@ -30,8 +30,12 @@ public partial class ShowMembers : System.Web.UI.Page
         else
         {
             st += "<table>";
-            st += "<tr>";
-            // שימוש ב-TH בשביל ה-CSS של הכותרת
+
+            // שימוש בקלאס topRow בשביל צבע לבן לכותרת
+            st += "<tr class='topRow'>";
+
+            // הכותרות של הטבלה (כולל עמודת ID ראשונה כדי להתאים בדיוק למספר העמודות בבסיס הנתונים)
+            st += "<th>ID</th>";
             st += "<th>שם פרטי</th>";
             st += "<th>שם משפחה</th>";
             st += "<th>יום הולדת</th>";
@@ -47,11 +51,13 @@ public partial class ShowMembers : System.Web.UI.Page
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 st += "<tr>";
-                // לולאה על העמודות (Id, name, familyname, BirthDay, email, food, moreinfo, game, pass, phonenumber)
+
+                // לולאה על העמודות
                 for (int k = 0; k < dt.Columns.Count; k++)
                 {
                     st += "<td>" + dt.Rows[i][k] + "</td>";
                 }
+
                 st += "</tr>";
             }
 

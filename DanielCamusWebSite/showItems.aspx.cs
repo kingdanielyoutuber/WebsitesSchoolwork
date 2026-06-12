@@ -12,9 +12,9 @@ public partial class showItems : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        // 1. קליטת ערכי החיפוש
-        string strName = Request.Form["itemNameSearch"] ?? "";
-        string strPrice = Request.Form["itemPriceSearch"] ?? "";
+        // 1. קליטת ערכי החיפוש מהטופס
+        string strName = Request.Form["itemNameSearch"];
+        string strPrice = Request.Form["itemPriceSearch"];
 
         // 2. טיפול במחיר - אם ריק, נשים מספר גבוה מאוד כדי שיציג הכל
         if (string.IsNullOrEmpty(strPrice))
@@ -37,7 +37,11 @@ public partial class showItems : System.Web.UI.Page
         else
         {
             st += "<table>";
-            st += "<tr style='background-color: #f2f2f2;'>";
+
+            // חיבור לקלאס הלבן שעשינו ב-CSS
+            st += "<tr class='topRow'>";
+
+            // כותרות
             st += "<th>קוד פריט</th>";
             st += "<th>שם הפריט</th>";
             st += "<th>תיאור</th>";
@@ -49,15 +53,18 @@ public partial class showItems : System.Web.UI.Page
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 st += "<tr>";
+
                 // לולאה רצה על העמודות (Id, Name, Description, Count, Price)
                 for (int k = 0; k < dt.Columns.Count; k++)
                 {
                     st += "<td>" + dt.Rows[i][k] + "</td>";
                 }
+
                 st += "</tr>";
             }
+
             st += "</table>";
-            st += "<p style='text-align:center;'>נמצאו " + dt.Rows.Count + " פריטים</p>";
+            st += "<p style='text-align:center; margin-top:10px;'>נמצאו " + dt.Rows.Count + " פריטים</p>";
         }
     }
 }
