@@ -52,42 +52,50 @@
 
     <div class="user-status">
         <% 
-            if (Session["userName"] != null) 
+            // 1. אם אף אחד לא מחובר (הסשן ריק)
+            if (Session["UserName"] == null) 
             { 
-                // אם מנהל - צובע באדום, אחרת בכחול כהה
-                string colorClass = (Session["userRole"] != null && Session["userRole"].ToString() == "admin") ? "admin-color" : "user-color";
-                Response.Write("שלום, <span class='" + colorClass + "'>" + Session["userName"] + "</span>"); 
+                Response.Write("שלום, אורח"); 
             } 
             else 
             { 
-                Response.Write("שלום, אורח"); 
+                // 2. אם מישהו מחובר והוא מנהל
+                if (Session["IsAdmin"] != null)
+                {
+                    Response.Write("שלום, <span class='admin-color'>" + Session["UserName"] + "</span>"); 
+                }
+                // 3. אם מישהו מחובר והוא משתמש רגיל
+                else
+                {
+                    Response.Write("שלום, <span class='user-color'>" + Session["UserName"] + "</span>"); 
+                }
             } 
         %>
     </div>
 
     <div class="nav">
         
-        <%-- קישורים שמוצגים לכולם (גם אם לא מחוברים) --%>
+        <%-- קישורים שמוצגים לכולם (אורחים, משתמשים ומנהלים) --%>
         <a href="introduction.aspx">introduction</a>
         <a href="ownerDanielinfo.aspx">ownerDanielinfo</a>
         <a href="Gallery.aspx">Gallery</a>
         
 
-        <%-- קישורים רק לאורחים (כשהסשן ריק) --%>
-        <% if (Session["userRole"] == null) { %>
+        <%-- קישורים שמוצגים רק לאורחים (כשאף אחד לא מחובר) --%>
+        <% if (Session["UserName"] == null) { %>
             <a href="Register.aspx">Register</a>
             <a href="Login.aspx">Login</a>
         <% } %>
 
-        <%-- קישורים למשתמשים רשומים ומנהלים (כשהסשן מלא) --%>
-        <% if (Session["userRole"] != null) { %>
+        <%-- קישורים שמוצגים לכל מי שמחובר (משתמשים רגילים ומנהלים) --%>
+        <% if (Session["UserName"] != null) { %>
             <a href="duotable.aspx">לוח הכפל</a>
             <a href="showItems.aspx">showItems</a>
             <a href="Logout.aspx">Logout</a>
         <% } %>
 
-        <%-- קישורים למנהל בלבד --%>
-        <% if (Session["userRole"] != null && Session["userRole"].ToString() == "admin") { %>
+        <%-- קישורים שמוצגים למנהל בלבד --%>
+        <% if (Session["IsAdmin"] != null) { %>
             <a href="ShowMembers.aspx">ShowMembers</a>
             <a href="Registeritem.aspx">Registeritems</a>
         <% } %>

@@ -5,42 +5,43 @@ using System.Web.UI;
 
 public partial class Login : System.Web.UI.Page
 {
-    public string strResult = "";
+    public string strResult = ""; // משתנה להצגת הודעות שגיאה למשתמש
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Page.IsPostBack)
+        if (Page.IsPostBack) // בדיקה האם המשתמש לחץ על כפתור השליחה
         {
             string strEmail = Request.Form["anEmail"];
             string strPassword1 = Request.Form["password1"];
 
-            // 1. בדיקת מנהל
+            // 1. בדיקה האם זה מנהל (אימייל וסיסמה קבועים מראש)
             if (strEmail == "theadminYES@gmail.com" && strPassword1 == "5768Lk")
             {
-                Session["userName"] = "מנהל רשום";
-                Session["userRole"] = "admin";
+                // *** סימון מנהל ***
+                Session["IsAdmin"] = "yes";       // הסבר: סשן ייחודי שמסמן למערכת שהאיש הזה הוא המנהל ויש לו הרשאות מיוחדות
+                Session["UserName"] = "Admin";     // הסבר: שומר את השם שיוצג בברכת השלום באתר (שלום, Admin)
+
                 Response.Redirect("Showmembers.aspx");
             }
             else
             {
-                // 2. בדיקה מול מסד הנתונים
+                // 2. בדיקה במסד הנתונים האם המשתמש הרגיל קיים
                 string strSelect = "SELECT * FROM tUsers WHERE Email = N'" + strEmail + "' AND password = N'" + strPassword1 + "'";
                 DataTable dt = MyAdoHelper.ExecuteDataTable(strSelect);
 
-                if (dt.Rows.Count > 0)
+                if (dt.Rows.Count == 0) // אם אין שורות - הפרטים שגויים וההתחברות נכשלה
                 {
-                    string firstName = dt.Rows[0]["name"].ToString(); // לפי עמודת name בטבלה
-                    Session["userName"] = firstName + " רשום";
-                    Session["userRole"] = "user";
-                    Response.Redirect("showItems.aspx");
+                    Session.Remove("IsAdmin");   // מוחקים את סימון המנהל לביטחון שלא יישאר מהתחברות קודמת
+                    Session.Remove("UserName");  // מוחקים את שם המשתמש כדי להחזיר אותו למצב "אורח"
+                    strResult = "אימייל או סיסמה שגויים";
                 }
-                else
+                else // אם נמצאה שורה - המשתמש הרגיל קיים בהצלחה!
                 {
-                    // *** כאן התיקון החשוב! ***
-                    // אם הפרטים לא נכונים, אנחנו מאפסים את ה-Session כדי שלא יזכור את המשתמש הקודם
-                    Session["userName"] = null;
-                    Session["userRole"] = null;
-                    strResult = "אינך רשום במערכת, או שהפרטים שגויים.";
+                    // *** סימון משתמש רגיל ***
+                    Session.Remove("IsAdmin");   // הסבר: הוא משתמש רגיל, לכן אנחנו מוודאים ומוחקים לחלוטין את סימון המנהל! אין לו הרשאות!
+                    Session["UserName"] = dt.Rows[0]["name"].ToString(); // הסבר: שומר את השם הפרטי האמיתי שלו מתוך מסד הנתונים
+
+                    Response.Redirect("showItems.aspx");
                 }
             }
         }
