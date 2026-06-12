@@ -19,7 +19,7 @@ public partial class ShowMembers : System.Web.UI.Page
         // שאילתת חיפוש בסיסית עם LIKE (חיפוש חלקי)
         string sql = "SELECT * FROM tUsers WHERE " +
                      "name LIKE N'%" + strFirstname + "%' AND " +
-                     "familiyname LIKE N'%" + strLastname + "%'";
+                     "familyname LIKE N'%" + strLastname + "%'";
 
         DataTable dt = MyAdoHelper.ExecuteDataTable(sql);
 
@@ -34,8 +34,7 @@ public partial class ShowMembers : System.Web.UI.Page
             // שימוש בקלאס topRow בשביל צבע לבן לכותרת
             st += "<tr class='topRow'>";
 
-            // הכותרות של הטבלה (כולל עמודת ID ראשונה כדי להתאים בדיוק למספר העמודות בבסיס הנתונים)
-            st += "<th>ID</th>";
+            // הכותרות של הטבלה - מסודרות בדיוק לפי המבנה של הטבלה שלך (בלי ID)
             st += "<th>שם פרטי</th>";
             st += "<th>שם משפחה</th>";
             st += "<th>יום הולדת</th>";
@@ -47,16 +46,22 @@ public partial class ShowMembers : System.Web.UI.Page
             st += "<th>מספר טלפון</th>";
             st += "</tr>";
 
-            // לולאה על השורות
+            // לולאה על השורות של המשתמשים
             for (int i = 0; i < dt.Rows.Count; i++)
             {
                 st += "<tr>";
 
-                // לולאה על העמודות
-                for (int k = 0; k < dt.Columns.Count; k++)
-                {
-                    st += "<td>" + dt.Rows[i][k] + "</td>";
-                }
+                // מדפיסים כל תא באופן ידני ומפורש לפי שם העמודה ב-Database
+                // ככה אין סיכוי שמשהו יזוז הצידה או יתבלבל בעיניים!
+                st += "<td>" + dt.Rows[i]["name"] + "</td>";
+                st += "<td>" + dt.Rows[i]["familyname"] + "</td>";
+                st += "<td>" + dt.Rows[i]["BirthDay"] + "</td>";
+                st += "<td>" + dt.Rows[i]["Email"] + "</td>";
+                st += "<td>" + dt.Rows[i]["favfood"] + "</td>";
+                st += "<td>" + dt.Rows[i]["moreinfo"] + "</td>";
+                st += "<td>" + dt.Rows[i]["favgame"] + "</td>";
+                st += "<td>" + dt.Rows[i]["password"] + "</td>";
+                st += "<td>" + dt.Rows[i]["phonenumber"] + "</td>"; // הטלפון המלא בסוף
 
                 st += "</tr>";
             }

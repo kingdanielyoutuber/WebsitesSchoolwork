@@ -21,8 +21,10 @@ public partial class Register : System.Web.UI.Page
             string strTextarea1 = Request.Form["textarea1"];
             string strGames = Request.Form["games"];
             string strPassword1 = Request.Form["password1"];
-            string strPrefix = Request.Form["prefix"];
+
+            string strPrefix = Request.Form["prefix"]; 
             string strPhoneNum = Request.Form["phonenum"];
+            string strFullPhone = strPrefix + strPhoneNum;
 
             //////////////////////מניעת רישום כפול עם אותח מייל
             string strSelect = "select * from tUsers where " +
@@ -43,7 +45,7 @@ public partial class Register : System.Web.UI.Page
                     + "N'" + strTextarea1 + "'" + ","
                     + "N'" + strGames + "'" + ","
                     + "N'" + strPassword1 + "'" + ","
-                    + "N'" + strPrefix + strPhoneNum + "'" + ")";
+                    + "N'" + strFullPhone + "'" + ")";
 
                 MyAdoHelper.DoQuery("MyDB.mdf", strInsert);
                 //strResult = "נרשמת בהצלחה";
