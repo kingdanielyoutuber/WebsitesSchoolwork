@@ -51,7 +51,7 @@
                 itemCounterror.innerHTML = "חובה להזין כמות";
                 return false;
             }
-            else if (count >= 100) {
+            else if (count > 500) {
                 itemCounterror.innerHTML = "יותר מידי פרטים!";
                 return false;
             }
